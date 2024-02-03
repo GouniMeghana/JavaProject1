@@ -1,0 +1,60 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Question {
+    String text;
+    String[] options;
+    String correctAnswer;
+
+    public Question(String text, String[] options, String correctAnswer) {
+        this.text = text;
+        this.options = options;
+        this.correctAnswer = correctAnswer;
+    }
+}
+
+class Quiz {
+    ArrayList<Question> questions;
+
+    public Quiz() {
+        this.questions = new ArrayList<>();
+    }
+
+    public void addQuestion(Question question) {
+        this.questions.add(question);
+    }
+
+    public void runQuiz() {
+        Scanner scanner = new Scanner(System.in);
+        int score = 0;
+
+        for (Question question : questions) {
+            System.out.println(question.text);
+            for (int i = 0; i < question.options.length; i++) {
+                System.out.println((i + 1) + ". " + question.options[i]);
+            }
+
+            System.out.print("Your answer: ");
+            String userAnswer = scanner.nextLine().trim();
+
+            if (userAnswer.equalsIgnoreCase(question.correctAnswer)) {
+                score++;
+            }
+        }
+
+        System.out.println("Your final score: " + score + "/" + questions.size());
+    }
+}
+
+public class QuizApp {
+    public static void main(String[] args) {
+        Question question1 = new Question("What is the capital of France?", new String[]{"A. Berlin", "B. Madrid", "C. Paris"}, "C. Paris");
+        Question question2 = new Question("Which planet is known as the Red Planet?", new String[]{"A. Venus", "B. Mars", "C. Jupiter"}, "B. Mars");
+
+        Quiz quiz = new Quiz();
+        quiz.addQuestion(question1);
+        quiz.addQuestion(question2);
+
+        quiz.runQuiz();
+    }
+}
